@@ -1,0 +1,208 @@
+PS C:\Users\ayesh> curl http://localhost:3000/users
+
+Security Warning: Script Execution Risk
+Invoke-WebRequest parses the content of the web page. Script code in the web page might be run when the page is
+parsed.
+      RECOMMENDED ACTION:
+      Use the -UseBasicParsing switch to avoid script code execution.
+
+      Do you want to continue?
+
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): Y
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : [{"id":1,"name":"Ayesha","age":21,"position":"Internee"},{"id":2,"name":"Dua","age":22,"position":"
+                    SQA Engineer"},{"id":3,"name":"Mishal","age":23,"position":"Developer"},{"id":4,"name":"Misbah","ag
+                    e"...
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Keep-Alive: timeout=72
+                    Content-Length: 235
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 07 Aug 2026 19:06:52 GMT
+
+                    [{"id":1,"name":"Ayesha","ag...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Keep-Alive, timeout=72], [Content-Length, 235], [Content-Type,
+                    application/json; charset=utf-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 235
+
+
+
+PS C:\Users\ayesh> curl -Method POST http://localhost:3000/users `
+>> -Headers @{"Content-Type"="application/json"} `
+>> -Body '{"name":"Sara","age":23,"position":"Backend Developer"}'
+
+Security Warning: Script Execution Risk
+Invoke-WebRequest parses the content of the web page. Script code in the web page might be run when the page is
+parsed.
+      RECOMMENDED ACTION:
+      Use the -UseBasicParsing switch to avoid script code execution.
+
+      Do you want to continue?
+
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): Y
+
+
+StatusCode        : 201
+StatusDescription : Created
+Content           : {"id":5,"name":"Sara","age":23,"position":"Backend Developer"}
+RawContent        : HTTP/1.1 201 Created
+                    Connection: keep-alive
+                    Keep-Alive: timeout=72
+                    Content-Length: 62
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 07 Aug 2026 19:07:40 GMT
+
+                    {"id":5,"name":"Sara","a...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Keep-Alive, timeout=72], [Content-Length, 62], [Content-Type,
+                    application/json; charset=utf-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 62
+
+
+
+PS C:\Users\ayesh> curl http://localhost:3000/users/2
+
+Security Warning: Script Execution Risk
+Invoke-WebRequest parses the content of the web page. Script code in the web page might be run when the page is
+parsed.
+      RECOMMENDED ACTION:
+      Use the -UseBasicParsing switch to avoid script code execution.
+
+      Do you want to continue?
+
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): Y
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : {"id":2,"name":"Dua","age":22,"position":"SQA Engineer"}
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Keep-Alive: timeout=72
+                    Content-Length: 56
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 07 Aug 2026 19:08:26 GMT
+
+                    {"id":2,"name":"Dua","age":22...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Keep-Alive, timeout=72], [Content-Length, 56], [Content-Type,
+                    application/json; charset=utf-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 56
+
+
+
+PS C:\Users\ayesh> curl http://localhost:3000/users/999
+curl : {"message":"User not found"}
+At line:1 char:1
++ curl http://localhost:3000/users/999
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebExc
+   eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+PS C:\Users\ayesh> curl -Method PUT http://localhost:3000/users/2 `
+>> -Headers @{"Content-Type"="application/json"} `
+>> -Body '{"name":"Dua Ansari","age":23,"position":"Sqa Engineer"}'
+
+Security Warning: Script Execution Risk
+Invoke-WebRequest parses the content of the web page. Script code in the web page might be run when the page is
+parsed.
+      RECOMMENDED ACTION:
+      Use the -UseBasicParsing switch to avoid script code execution.
+
+      Do you want to continue?
+
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): Y
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : {"id":2,"name":"Dua Ansari","age":23,"position":"Sqa Engineer"}
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Keep-Alive: timeout=72
+                    Content-Length: 63
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 07 Aug 2026 19:09:29 GMT
+
+                    {"id":2,"name":"Dua Ansari","...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Keep-Alive, timeout=72], [Content-Length, 63], [Content-Type,
+                    application/json; charset=utf-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 63
+
+
+
+PS C:\Users\ayesh> curl -Method PUT http://localhost:3000/users/999 `
+>> -Headers @{"Content-Type"="application/json"} `
+>> -Body '{"name":"Nobody","age":30,"position":"Developer"}'
+curl : {"message":"User not found"}
+At line:1 char:1
++ curl -Method PUT http://localhost:3000/users/999 `
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebExc
+   eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+PS C:\Users\ayesh> curl -Method DELETE http://localhost:3000/users/5
+
+Security Warning: Script Execution Risk
+Invoke-WebRequest parses the content of the web page. Script code in the web page might be run when the page is
+parsed.
+      RECOMMENDED ACTION:
+      Use the -UseBasicParsing switch to avoid script code execution.
+
+      Do you want to continue?
+
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): Y
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : {"message":"User deleted successfully"}
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Keep-Alive: timeout=72
+                    Content-Length: 39
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 07 Aug 2026 19:09:57 GMT
+
+                    {"message":"User deleted succ...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Keep-Alive, timeout=72], [Content-Length, 39], [Content-Type,
+                    application/json; charset=utf-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 39
+
+
+
+PS C:\Users\ayesh> curl http://localhost:3000/users/5
+curl : {"message":"User not found"}
+At line:1 char:1
++ curl http://localhost:3000/users/5
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebExc
+   eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+PS C:\Users\ayesh>
