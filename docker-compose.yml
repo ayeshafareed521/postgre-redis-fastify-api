@@ -6,7 +6,7 @@ services:
 
     environment:
       POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: abc123
+      POSTGRES_PASSWORD: Implement123
       POSTGRES_DB: postgres_db
 
     ports:
