@@ -1,32 +1,54 @@
 console.log("Redis.js Running...");
 const { createClient } = require("redis");
 
-const redisClient = createClient({
-    socket: {
-        host: process.env.REDIS_HOST,
-        port: Number(process.env.REDIS_PORT)
+class RedisSingleton {
+
+    constructor() {
+
+        // If an instance already exists,
+        // return that same instance.
+        if (RedisSingleton.instance) {
+            return RedisSingleton.instance;
+        }
+
+        // Create Redis client only ONCE.
+        this.client = createClient({
+            socket: {
+                host: process.env.REDIS_HOST || "127.0.0.1",
+                port: Number(process.env.REDIS_PORT) || 6379
+            }
+        });
+
+        // Redis error handler
+        this.client.on("error", (error) => {
+            console.error("Redis Error:", error);
+        });
+
+        // Save Singleton instance
+        RedisSingleton.instance = this;
     }
-});
 
-redisClient.on("error", (err) => {
-    console.error("Redis Error:", err);
-});
 
-redisClient.on("connect", () => {
-    console.log("Redis connecting...");
-});
+    async connect() {
 
-redisClient.on("ready", () => {
-    console.log("Redis Connected Successfully");
-});
+        // Prevent multiple connections
+        if (!this.client.isOpen) {
 
-async function connectRedis() {
-    if (!redisClient.isOpen) {
-        await redisClient.connect();
+            await this.client.connect();
+
+            console.log(
+                "Redis Connected Successfully"
+            );
+        }
+    }
+
+
+    getClient() {
+
+        return this.client;
     }
 }
 
-module.exports = {
-    redisClient,
-    connectRedis
-};
+
+// Export ONE Singleton instance
+module.exports = new RedisSingleton();

@@ -1,5 +1,22 @@
-console.log("App Running...");
+console.log("App.js Running...");
 const Fastify = require("fastify");
-const app = Fastify();
-app.register(require("./routes/userRoutes"));
+
+const rateLimiter = require("./middleware/rateLimiter");
+
+const app = Fastify({
+    logger: true
+});
+
+
+app.addHook(
+    "onRequest",
+    rateLimiter
+);
+
+
+app.register(
+    require("./routes/userRoutes")
+);
+
+
 module.exports = app;

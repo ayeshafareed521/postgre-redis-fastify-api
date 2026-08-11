@@ -1,30 +1,113 @@
 console.log("Server.js Running...");
 require("dotenv").config();
 
-const db = require("./config/db");
-const { connectRedis } = require("./config/redis");
+const http =
+    require("http");
 
-const app = require("./app");
 
-const PORT = process.env.PORT || 3000;
+const app =
+    require("./app.js");
+
+
+const redis =
+    require("./config/redis.js");
+
+
+const socketServer =
+    require("./sockets/socketServer.js");
+
+
+const registerChatSocket =
+    require("./sockets/chatSockets.js");
+
+
+const PORT =
+    Number(
+        process.env.PORT
+    ) || 3000;
+
 
 async function startServer() {
+
     try {
 
-        await connectRedis();
+        // ==========================================
+        // REDIS
+        // ==========================================
 
-        await app.listen({
-            port: PORT
-        });
+        await redis.connect();
 
-        console.log(`Server running on port ${PORT}`);
 
-    } catch (err) {
+        // ==========================================
+        // FASTIFY
+        // ==========================================
 
-        console.error(err);
+        await app.ready();
+
+
+        // ==========================================
+        // HTTP SERVER
+        // ==========================================
+
+        const server =
+            http.createServer(
+                (req, res) => {
+
+                    app.routing(
+                        req,
+                        res
+                    );
+
+                }
+            );
+
+
+        // ==========================================
+        // SOCKET.IO SINGLETON
+        // ==========================================
+
+        const io =
+            socketServer.initialize(
+                server
+            );
+
+
+        // ==========================================
+        // CHAT
+        // ==========================================
+
+        registerChatSocket(io);
+
+
+        // ==========================================
+        // START
+        // ==========================================
+
+        server.listen(
+            PORT,
+            "127.0.0.1",
+            () => {
+
+                console.log(
+                    `Server running on http://localhost:${PORT}`
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Server startup failed:",
+            error
+        );
 
         process.exit(1);
+
     }
+
 }
+
 
 startServer();

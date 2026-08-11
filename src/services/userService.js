@@ -1,7 +1,8 @@
 console.log("userServices.js Running...");
 const pool = require("../config/db");
-const { redisClient } = require("../config/redis");
+const redis = require("../config/redis");
 
+const redisClient = redis.getClient();
 
 async function getAllUsers() {
 
