@@ -56,10 +56,9 @@ Dockerized PostgreSQL and Redis
 
 ## Setup
 
-1. Install dependencies
-   npm install
+1. Install dependencies \n ```text npm install ```
 2. Configure environment variables
-
+```text
 Create a .env file:
 
 PORT=3000
@@ -72,19 +71,23 @@ DB_NAME=postgres
 
 REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
+```
 3. Start PostgreSQL and Redis
+```text
 docker compose up -d
 
 Check their status:
 
 docker compose ps
+```
 4. Start the API
+```text
 node server.js
 
 The API runs on:
 
 http://localhost:3000
-
+```
 ## Chat Testing
 
 Open chat-test.html in two browser tabs/windows to test real-time communication between two clients.
