@@ -14,7 +14,6 @@ The project provides REST APIs, real-time chat functionality, Redis-based rate l
 
 ## Architecture
 
-```text
 Client
   │
   ├── REST API ──→ Fastify ──→ PostgreSQL
@@ -25,7 +24,7 @@ Client
 
 Fastify and Socket.IO run on the host machine, while PostgreSQL and Redis run in Docker.
 
- Project Structure
+ ## Project Structure
 
 postgre_fastify_api/
 ├── config/
@@ -41,7 +40,7 @@ postgre_fastify_api/
 ├── .env.example
 └── README.md
 
-Features
+## Features
 
 RESTful API with Fastify
 PostgreSQL database integration
@@ -53,7 +52,7 @@ Online user tracking
 Singleton Redis and Socket.IO instances
 Dockerized PostgreSQL and Redis
 
-Setup
+## Setup
 
 1. Install dependencies
 npm install
@@ -84,6 +83,6 @@ The API runs on:
 
 http://localhost:3000
 
-Chat Testing
+## Chat Testing
 
 Open chat-test.html in two browser tabs/windows to test real-time communication between two clients.
